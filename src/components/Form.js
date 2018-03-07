@@ -1,12 +1,13 @@
 import React from 'react';
 import { reduxForm, Field } from "redux-form";
 
-export function Form(props) {
-  function onSubmit(values) {
+export class Form extends React.Component {
+  onSubmit(values) {
     console.log(values);
   }
+  render() {
   return <div>
-      <form>
+      <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
         <label htmlFor="tracking">Tracking Number</label>
         <Field name="tracking" component="input" type="text"/>
         <label htmlFor="complaint">What is your issue</label>
@@ -19,9 +20,10 @@ export function Form(props) {
         </Field>
         <label htmlFor="details">Give more details</label>
         <Field component="textarea" name="details" id="complaint-details" cols="30" rows="10"></Field>
-        <input type="submit"></input>
+        <button type="submit">Submit</button>
       </form>
     </div>;
+  }
 }
 
 export default reduxForm({
